@@ -19,9 +19,10 @@ public class Comment {
             strategy = GenerationType.IDENTITY
     )
     private Long id;
-    private String body;
-    private String email;
     private String name;
+    private String email;
+    private String body;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id",nullable = false)
     private Post post;
