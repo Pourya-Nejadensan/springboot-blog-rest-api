@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BlogAPIException.class)
-    public ResponseEntity<ErrorDetails> handleResourceNotFoundException(BlogAPIException exception,
+    public ResponseEntity<ErrorDetails> handleBlogAPIFoundException(BlogAPIException exception,
                                                                         WebRequest webRequest){
         ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
                 webRequest.getDescription(false));
@@ -29,4 +29,11 @@ public class GlobalExceptionHandler {
     }
 
     // global exception
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorDetails> handleGlobalException(Exception exception,
+                                                                    WebRequest webRequest){
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), exception.getMessage(),
+                webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
